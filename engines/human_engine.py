@@ -15,6 +15,7 @@ class HumanEngine(AbstractEngine):
 
             if len(string_move) != 4:
                 print("\nWrong string length - illegal move\n")
+                continue
 
             move = Move.from_uci(string_move)
             if move in legal_moves:
