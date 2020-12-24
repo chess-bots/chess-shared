@@ -1,7 +1,7 @@
 import chess
 # import engines here
 
-from engines import ChessEngine
+from chess_engine import ChessEngine
 
 
 def main():
