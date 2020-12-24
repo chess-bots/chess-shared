@@ -1,4 +1,4 @@
-from abstract_engine import AbstractEngine
+from engines.abstract_engine import AbstractEngine
 from chess import Board, Move
 
 

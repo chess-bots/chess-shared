@@ -5,8 +5,10 @@ from chess_engine import ChessEngine
 from engines.human_engine import HumanEngine
 from engines.random_engine import RandomEngine
 
+
 def main():
-    white_engine = HumanEngine(chess.WHITE)
+
+    white_engine = RandomEngine(chess.WHITE)
     black_engine = RandomEngine(chess.BLACK)
 
     c = ChessEngine(white_engine, black_engine)
