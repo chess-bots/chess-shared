@@ -1,9 +1,9 @@
-from abstract_engine import abstract_engine
+from abstract_engine import AbstractEngine
 from chess import Board, Move
 
 
 # Example implementation
-class human_engine(abstract_engine):
+class HumanEngine(AbstractEngine):
     def __init__(self, color):
         super().__init__(color)
 

@@ -1,4 +1,3 @@
-import chess
 # import engines here
 
 from chess_engine import ChessEngine
