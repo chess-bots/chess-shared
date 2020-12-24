@@ -1,13 +1,18 @@
 import chess
+
+
 # import engines here
 
 
 class ChessEngine:
-    def __init__(self, white_engine, black_engine, show_moves = False):
+    def __init__(self, white_engine, black_engine, show_moves=False):
         self.white_engine = white_engine
         self.black_engine = black_engine
         self.show_moves = show_moves
         self.board = chess.Board()
+
+        if self.show_moves:
+            print(self.board, "\n")
 
     def run(self):
         while True:

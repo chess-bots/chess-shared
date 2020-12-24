@@ -11,7 +11,7 @@ def main():
     white_engine = HumanEngine(chess.WHITE)
     black_engine = RandomEngine(chess.BLACK)
 
-    c = ChessEngine(white_engine, black_engine)
+    c = ChessEngine(white_engine, black_engine, True)
     c.run()
 
 
