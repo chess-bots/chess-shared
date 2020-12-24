@@ -1,9 +1,12 @@
 import chess
-#import engines here
+
+# import engines here
+from human_engine import human_engine
+
 
 def main():
-    white_engine = None
-    black_engine = None
+    white_engine = human_engine(chess.WHITE)
+    black_engine = human_engine(chess.BLACK)
 
     board = chess.Board()
     print(board)
@@ -14,7 +17,7 @@ def main():
             print("Black Wins")
             break
 
-        move = white_engine.get_move()
+        move = white_engine.get_move(board)
         board.push(move)
         print(board)
 
@@ -22,7 +25,7 @@ def main():
             print("Black Wins")
             break
 
-        move = black_engine.get_move()
+        move = black_engine.get_move(board)
         board.push(move)
         print(board)
 

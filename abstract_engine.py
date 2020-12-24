@@ -5,7 +5,8 @@ class abstract_engine:
         self.color = color
 
     # returns chess.move
-    def get_move(self, current_board): pass
+    def get_move(self, current_board):
+        print("ERROR: Function not overriden in child class")
 
 # Example implementation
 # class test_engine(abstract_engine):
