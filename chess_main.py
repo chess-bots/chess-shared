@@ -6,6 +6,7 @@ def main():
     black_engine = None
 
     board = chess.Board()
+    print(board)
 
     while True:
 
@@ -15,6 +16,7 @@ def main():
 
         move = white_engine.get_move()
         board.push(move)
+        print(board)
 
         if board.is_game_over():
             print("Black Wins")
@@ -22,6 +24,7 @@ def main():
 
         move = black_engine.get_move()
         board.push(move)
+        print(board)
 
 
 if __name__ == '__main__':
