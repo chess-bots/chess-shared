@@ -1,14 +1,17 @@
 # import engines here
-from camden_engine import CamdenEngine
 
+import chess
 from chess_engine import ChessEngine
+from engines.human_engine import HumanEngine
+from engines.random_engine import RandomEngine
 
 
 def main():
-    white_engine = CamdenEngine(True)
-    black_engine = CamdenEngine(False)
 
-    c = ChessEngine(white_engine, black_engine, True)
+    white_engine = RandomEngine(chess.WHITE)
+    black_engine = RandomEngine(chess.BLACK)
+
+    c = ChessEngine(white_engine, black_engine)
 
     c.run()
 
