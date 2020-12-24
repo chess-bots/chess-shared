@@ -13,6 +13,9 @@ class HumanEngine(AbstractEngine):
         while True:
             string_move = input("Enter move:").lower()
 
+            if len(string_move) != 4:
+                print("\nWrong string length - illegal move\n")
+
             move = Move.from_uci(string_move)
             if move in legal_moves:
                 return move
