@@ -22,7 +22,7 @@ class ChessEngine:
             if self.board.turn == chess.BLACK:
                 current_engine = self.black_engine
 
-            move = current_engine.get_move(self.board)
+            move = current_engine.get_move(self.board.copy())
             self.board.push(move)
 
             if self.show_moves:
