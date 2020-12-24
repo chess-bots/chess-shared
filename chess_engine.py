@@ -3,9 +3,10 @@ import chess
 
 
 class ChessEngine:
-    def __init__(self, white_engine, black_engine):
+    def __init__(self, white_engine, black_engine, show_moves):
         self.white_engine = white_engine
         self.black_engine = black_engine
+        self.show_moves = show_moves
         self.board = chess.Board()
 
     def run(self):
@@ -18,6 +19,9 @@ class ChessEngine:
 
             move = current_engine.get_move(self.board)
             self.board.push(move)
+
+            if self.show_moves:
+                print(self.board, "\n")
 
             if self.board.is_game_over():
                 if self.board.result() == "1/2-1/2":
