@@ -47,6 +47,14 @@ class ChessEngine:
                 current_engine = self.black_engine
 
             move = current_engine.get_move(self.board.copy())
+
+            if self.min_display_time > 0:
+                # time is a float, units are seconds
+                toc = t.time()
+                diff = toc - tic
+                if diff < self.min_display_time:
+                    t.sleep(self.min_display_time - diff)
+
             self.board.push(move)
 
             if self.svg_graphics:
@@ -63,11 +71,3 @@ class ChessEngine:
                 if self.board.result() == "0-1":
                     print("Black won the game")
                 break
-
-            if self.min_display_time > 0:
-                # time is a float, units are seconds
-                toc = t.time()
-                diff = toc - tic
-
-                if diff < self.min_display_time:
-                    t.sleep(self.min_display_time - diff)
