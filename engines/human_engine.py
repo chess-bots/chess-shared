@@ -11,6 +11,7 @@ class HumanEngine(AbstractEngine):
 
         while True:
             string_move = input("Enter move:").lower()
+            print()
 
             try:
                 move = Move.from_uci(string_move)
