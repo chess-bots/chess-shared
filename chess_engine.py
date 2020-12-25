@@ -1,18 +1,34 @@
 import chess
+from chess.svg import board as svg_renderer
+import os
 
 
 # import engines here
 
 
+def display_svg(svg):
+    file_name = "temp.svg"
+
+    f = open(file_name, "w")
+    f.write(svg)
+    f.close()
+
+    os.system("start " + file_name)
+
+
 class ChessEngine:
-    def __init__(self, white_engine, black_engine, show_moves=False):
+    def __init__(self, white_engine, black_engine, cli_graphics=False, svg_graphics=False):
         self.white_engine = white_engine
         self.black_engine = black_engine
-        self.show_moves = show_moves
+        self.cli_graphics = cli_graphics
+        self.svg_graphics = svg_graphics
         self.board = chess.Board()
 
-        if self.show_moves:
+        if self.cli_graphics:
             print(self.board, "\n")
+
+        if self.svg_graphics:
+            display_svg(svg_renderer(self.board))
 
     def run(self):
         while True:
@@ -25,7 +41,10 @@ class ChessEngine:
             move = current_engine.get_move(self.board.copy())
             self.board.push(move)
 
-            if self.show_moves:
+            if self.svg_graphics:
+                display_svg(svg_renderer(self.board, lastmove=move))
+
+            if self.cli_graphics:
                 print(self.board, "\n")
 
             if self.board.is_game_over():

@@ -11,7 +11,7 @@ def main():
     white_engine = RandomEngine(chess.WHITE)
     black_engine = SimpleEngine(chess.BLACK)
 
-    c = ChessEngine(white_engine, black_engine, True)
+    c = ChessEngine(white_engine, black_engine, svg_graphics=True)
     c.run()
 
 
