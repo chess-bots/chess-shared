@@ -28,7 +28,7 @@ class ChessEngine:
         self.cli_graphics = cli_graphics
         self.svg_graphics = svg_graphics
         self.board = chess.Board()
-        self.min_display_time = min_display_time
+        self.min_display_time = float(min_display_time)
 
         if self.cli_graphics:
             print(self.board, "\n")
