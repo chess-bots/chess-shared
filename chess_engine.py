@@ -1,6 +1,7 @@
 import chess
 from chess.svg import board as svg_renderer
 import os
+import time as t
 
 
 # import engines here
@@ -17,12 +18,17 @@ def display_svg(svg):
 
 
 class ChessEngine:
-    def __init__(self, white_engine, black_engine, cli_graphics=False, svg_graphics=False):
+
+    # cli_graphics enables printing of boardstate in the console
+    # svg_graphics enables svg display in your default app for displaying SVGs (web browsers work well, I use MS Edge)
+    # min_display_time will delay after a move is made to ensure a minimum duration for the turn
+    def __init__(self, white_engine, black_engine, cli_graphics=False, svg_graphics=False, min_display_time=-1.0):
         self.white_engine = white_engine
         self.black_engine = black_engine
         self.cli_graphics = cli_graphics
         self.svg_graphics = svg_graphics
         self.board = chess.Board()
+        self.min_display_time = min_display_time
 
         if self.cli_graphics:
             print(self.board, "\n")
@@ -32,6 +38,8 @@ class ChessEngine:
 
     def run(self):
         while True:
+            tic = t.time()
+
             current_engine = None
             if self.board.turn == chess.WHITE:
                 current_engine = self.white_engine
@@ -55,3 +63,11 @@ class ChessEngine:
                 if self.board.result() == "0-1":
                     print("Black won the game")
                 break
+
+            if self.min_display_time > 0:
+                # time is a float, units are seconds
+                toc = t.time()
+                diff = toc - tic
+
+                if diff < self.min_display_time:
+                    t.sleep(self.min_display_time - diff)
