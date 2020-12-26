@@ -13,18 +13,38 @@
     <div id="chessboard" style="width: 400px"></div>
 
     <script>
-
-
         var socket = io();
 
+        function onDragStart(source, piece, position, orientation) {
+            if ((orientation === 'white' && piece.search(/^w/) === -1) ||
+                (orientation === 'black' && piece.search(/^b/) === -1)) {
+                return false
+            }
+        }
+        function onDrop(source, target, piece, newPos, oldPos, orientation) {
+            socket.emit("send_move", {
+                source: source,
+                target: target
+            })
+        }
+
+
+
+
         var config = {
-            pieceTheme: "/static/chessboardjs/img/chesspieces/wikipedia/{piece}.png"
+            pieceTheme: "/static/chessboardjs/img/chesspieces/wikipedia/{piece}.png",
+            onDragStart: onDragStart,
+            draggable: true,
+            onDrop: onDrop
+
         }
         var chessboard = Chessboard('chessboard', config);
 
-        socket.on("board_fen", (fen) => {
-            chessboard.position(fen)
+        socket.on("game_state", (data) => {
+            chessboard.position(data.fen)
+            chessboard.orientation(data.orientation)
         })
+
 
 
     </script>

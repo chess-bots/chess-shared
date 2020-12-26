@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from chess_engine import ChessEngine
 from engines.random_engine import RandomEngine
 #from engines.socket_engine import SocketEngine
+from engines.gui_engine import GUIEngine
 from chess.svg import board as svg_renderer
 import chess
 
@@ -18,12 +19,22 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 socketio = SocketIO(app)
 
 white_engine = RandomEngine(chess.WHITE)
-black_engine = JustinEngine(chess.BLACK)
+black_engine = GUIEngine(chess.BLACK, socketio)
 
 chess_engine = ChessEngine(white_engine, black_engine, min_display_time=1)
 
+
+
 def board_update_callback():
-    socketio.emit("board_fen", chess_engine.board.fen())
+    socketio.emit("game_state", {
+        "fen": chess_engine.board.fen(),
+        "orientation": "black"
+    })
+
+
+@socketio.on('connect')
+def on_connect():
+    board_update_callback()
 
 def chess_worker():
     chess_engine.run(board_update_callback)
