@@ -36,7 +36,7 @@ class ChessEngine:
         if self.svg_graphics:
             display_svg(svg_renderer(self.board))
 
-    def run(self):
+    def run(self, callback=None):
         while True:
             tic = t.time()
 
@@ -46,7 +46,14 @@ class ChessEngine:
             if self.board.turn == chess.BLACK:
                 current_engine = self.black_engine
 
-            move = current_engine.get_move(self.board.copy())
+            while True:
+                move = current_engine.get_move(self.board.copy())
+
+                if callback is not None:
+                    callback()
+
+                if move in list(self.board.legal_moves):
+                    break
 
             if self.min_display_time > 0:
                 # time is a float, units are seconds
@@ -54,7 +61,8 @@ class ChessEngine:
                 diff = toc - tic
                 if diff < self.min_display_time:
                     t.sleep(self.min_display_time - diff)
-
+            
+            
             self.board.push(move)
 
             if self.svg_graphics:
@@ -71,3 +79,6 @@ class ChessEngine:
                 if self.board.result() == "0-1":
                     print("Black won the game")
                 break
+            
+            if callback is not None:
+                callback()

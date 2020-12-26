@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <script src="/static/chessboardjs/js/jquery-3.5.1.min.js"></script>
+    <script src="/static/socket.io/socket.io.min.js"></script>
+    <script src="/static/chessboardjs/js/chessboard-1.0.0.min.js"></script>
+    <link rel="stylesheet" href="/static/chessboardjs/css/chessboard-1.0.0.min.css">
+    </style>
+
+</head>
+
+<body>
+    <div id="chessboard" style="width: 400px"></div>
+
+    <script>
+        var socket = io();
+
+        function onDragStart(source, piece, position, orientation) {
+            if ((orientation === 'white' && piece.search(/^w/) === -1) ||
+                (orientation === 'black' && piece.search(/^b/) === -1)) {
+                return false
+            }
+        }
+        function onDrop(source, target, piece, newPos, oldPos, orientation) {
+            socket.emit("send_move", {
+                source: source,
+                target: target
+            })
+        }
+
+
+
+
+        var config = {
+            pieceTheme: "/static/chessboardjs/img/chesspieces/wikipedia/{piece}.png",
+            onDragStart: onDragStart,
+            draggable: true,
+            onDrop: onDrop
+
+        }
+        var chessboard = Chessboard('chessboard', config);
+
+        socket.on("game_state", (data) => {
+            chessboard.position(data.fen)
+            chessboard.orientation(data.orientation)
+        })
+
+
+
+    </script>
+
+</body>
+
+
+</html>
