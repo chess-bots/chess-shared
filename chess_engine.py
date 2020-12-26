@@ -36,7 +36,7 @@ class ChessEngine:
         if self.svg_graphics:
             display_svg(svg_renderer(self.board))
 
-    def run(self):
+    def run(self, callback=None):
         while True:
             tic = t.time()
 
@@ -71,3 +71,6 @@ class ChessEngine:
                 if self.board.result() == "0-1":
                     print("Black won the game")
                 break
+            
+            if callback is not None:
+                callback()
