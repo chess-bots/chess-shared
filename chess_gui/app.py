@@ -31,15 +31,30 @@ def send_board_state():
         "turn": "white" if chess_engine.board.turn else "black"
     })
 
+GAME_OVER = False
+GAME_RUNNING = False
+
 def background_task():
-    while chess_engine.run_iter():
+    global GAME_OVER
+    global GAME_RUNNING
+    while True:
         send_board_state()
         socketio.sleep(1)
 
+        if not chess_engine.run_iter():
+            print("game is finished... exiting")
+            GAME_RUNNING = False
+            GAME_OVER = True
+            break
+
 @socketio.on("connect")
 def on_connect():
+    global GAME_OVER
+    global GAME_RUNNING
     send_board_state()
-    socketio.start_background_task(background_task)
+    if not GAME_RUNNING and not GAME_OVER:
+        GAME_RUNNING = True
+        socketio.start_background_task(background_task)
 
 @app.route('/')
 def index():

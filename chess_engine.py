@@ -3,7 +3,6 @@ from chess.svg import board as svg_renderer
 import os
 import time as t
 
-
 # import engines here
 
 
@@ -14,8 +13,6 @@ class ChessEngine:
         self.board = chess.Board()
 
     def run_iter(self):
-        tic = t.time()
-
         current_engine = None
         if self.board.turn == chess.WHITE:
             current_engine = self.white_engine
@@ -43,6 +40,6 @@ class ChessEngine:
         
         return True
     
-    def run():
+    def run(self):
         while self.run_iter():
             pass
