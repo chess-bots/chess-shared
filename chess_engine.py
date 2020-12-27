@@ -7,16 +7,6 @@ import time as t
 # import engines here
 
 
-def display_svg(svg):
-    file_name = "temp.svg"
-
-    f = open(file_name, "w")
-    f.write(svg)
-    f.close()
-
-    os.system("start " + file_name)
-
-
 class ChessEngine:
 
     # cli_graphics enables printing of boardstate in the console

@@ -4,17 +4,49 @@ import chess
 from chess_engine import ChessEngine
 from engines.human_engine import HumanEngine
 from engines.random_engine import RandomEngine
-from simple_engine import SimpleEngine
 from engines.stockfish_engine import StockfishEngine, STOCKFISH_BENNETT_PATH, STOCKFISH_JUSTIN_PATH
 
+import time as t
 
-def main():
-    white_engine = SimpleEngine(chess.WHITE, depth=1)
-    black_engine = StockfishEngine(False, 1.0, path=STOCKFISH_BENNETT_PATH)
+import argparse
 
-    c = ChessEngine(white_engine, black_engine, svg_graphics=True, min_display_time=-1)
-    c.run()
+def display_svg(svg):
+    file_name = "temp.svg"
+
+    f = open(file_name, "w")
+    f.write(svg)
+    f.close()
+
+    os.system("start " + file_name)
+
+
+def main(args):
+    white_engine = RandomEngine(chess.WHITE)
+    black_engine = RandomEngine(chess.BLACK)
+
+    c = ChessEngine(white_engine, black_engine)
+
+    while c.run_iter():
+        if args.svg_graphics:
+            display_svg(svg_renderer(self.board, lastmove=move))
+
+        if args.cli_graphics:
+            print(self.board, "\n")
+        
+        if args.min_display_time > 0:
+            # time is a float, units are seconds
+            toc = t.time()
+            diff = toc - tic
+            if diff < self.min_display_time:
+                t.sleep(self.min_display_time - diff)
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description = 'Chess Main Application')
+    parser.add_argument('--svg_graphics', default=False)
+    parser.add_argument('--cli_graphics', default=False)
+    parser.add_argument('--min_display_time', default=-1)
+
+    args = parser.parse_args()
+
+    main(args)
