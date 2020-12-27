@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% include "board.html" %}
+
+<script>
+    function onDragStart(source, piece, position, orientation) {
+        if ((orientation === 'white' && piece.search(/^w/) === -1) ||
+            (orientation === 'black' && piece.search(/^b/) === -1)) {
+            return false
+        }
+    }
+    function onDrop(source, target, piece, newPos, oldPos, orientation) {
+        socket.emit("send_move", {
+            source: source,
+            target: target
+        })
+    }
+
+    var config = {
+        pieceTheme: "/static/chessboardjs/img/chesspieces/wikipedia/{piece}.png",
+        onDragStart: onDragStart,
+        draggable: true,
+        onDrop: onDrop,
+        orientation: "{{color}}"
+    }
+    var chessboard = Chessboard('chessboard', config);
+
+    socket.on("player_state", (data) => {
+        chessboard.orientation(data.orientation)
+    })
+
+</script>
+{% endblock %}

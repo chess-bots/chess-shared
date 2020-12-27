@@ -9,3 +9,4 @@ class AbstractEngine:
     # returns chess.move
     def get_move(self, current_board: chess.Board) -> chess.Move:
         print("ERROR: Function not overriden in child class")
+    
