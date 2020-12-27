@@ -10,3 +10,6 @@ class AbstractEngine:
     def get_move(self, current_board: chess.Board) -> chess.Move:
         print("ERROR: Function not overriden in child class")
     
+    # since the automated bots won't be able to handle an invalid move, just raise an exception
+    def on_invalid_move(self):
+        raise Exception("Your engine made an invalid move... exiting")

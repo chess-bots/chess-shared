@@ -11,10 +11,36 @@
         }
     }
     function onDrop(source, target, piece, newPos, oldPos, orientation) {
+
         socket.emit("send_move", {
             source: source,
-            target: target
+            target: target,
+            promotion: "q" // assume queen for now, we can maybe add that in later
         })
+    }
+
+    function highlight_square(square, color) {
+        $('#chessboard .square-' + square).css('background', color)
+    }
+    function highlight_moves(square, moves) {
+        highlight_clear();
+        moves.forEach(move => {
+            highlight_square(move.substr(2, 2), "#00FF00")
+        });
+    }
+
+    function highlight_clear() {
+        $('#chessboard .square-55d63').css('background', '')
+    }
+
+    function onMouseoverSquare(square, piece) {
+        socket.emit("legal_moves", { square: square }, (data) => {
+            highlight_moves(data.square, data.moves);
+        })
+    }
+
+    function onMouseoutSquare(square, piece) {
+        highlight_clear();
     }
 
     var config = {
@@ -22,7 +48,9 @@
         onDragStart: onDragStart,
         draggable: true,
         onDrop: onDrop,
-        orientation: "{{color}}"
+        orientation: "{{color}}",
+        onMouseoutSquare: onMouseoutSquare,
+        onMouseoverSquare: onMouseoverSquare,
     }
     var chessboard = Chessboard('chessboard', config);
 

@@ -19,14 +19,15 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-white_engine = RandomEngine(chess.WHITE)
+white_engine = JustinEngine(chess.WHITE)
 black_engine = GUIEngine(chess.BLACK, app, socketio)
 
 chess_engine = ChessEngine(white_engine, black_engine)
 
 def send_board_state():
     socketio.emit("game_state", {
-        "fen": chess_engine.board.fen()
+        "fen": chess_engine.board.fen(),
+        "turn": "white" if chess_engine.board.turn else "black"
     })
 
 def background_task():

@@ -5,11 +5,15 @@
 {% endblock %}
 
 <div id="chessboard" style="width: 400px"></div>
+<span id="turn"></span>
 
 <script>
+    var turn = "white"
     var socket = io();
     socket.on("connect", function () { console.log("connected") })
     socket.on("game_state", (data) => {
         chessboard.position(data.fen)
+        turn = data.turn
+        $("#turn").text(turn)
     })
 </script>

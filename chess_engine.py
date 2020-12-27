@@ -42,7 +42,7 @@ class ChessEngine:
             if move in list(self.board.legal_moves):
                 break
             else:
-                print("Invalid move from engine")        
+                current_engine.on_invalid_move(self.board, move)    
         
         self.board.push(move)
 
