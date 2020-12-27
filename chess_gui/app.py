@@ -21,7 +21,8 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 white_engine = JustinEngine(chess.WHITE)
-black_engine = StockfishEngine(chess.BLACK, think_time=1, path=STOCKFISH_JUSTIN_PATH)
+#black_engine = StockfishEngine(chess.BLACK, think_time=1, path=STOCKFISH_JUSTIN_PATH)
+black_engine = GUIEngine(chess.BLACK, app, socketio)
 
 chess_engine = ChessEngine(white_engine, black_engine)
 
