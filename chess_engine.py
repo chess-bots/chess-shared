@@ -8,10 +8,6 @@ import time as t
 
 
 class ChessEngine:
-
-    # cli_graphics enables printing of boardstate in the console
-    # svg_graphics enables svg display in your default app for displaying SVGs (web browsers work well, I use MS Edge)
-    # min_display_time will delay after a move is made to ensure a minimum duration for the turn
     def __init__(self, white_engine, black_engine):
         self.white_engine = white_engine
         self.black_engine = black_engine
