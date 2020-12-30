@@ -12,4 +12,4 @@ class AbstractEngine:
     
     # since the automated bots won't be able to handle an invalid move, just raise an exception
     def on_invalid_move(self, board, move):
-        raise Exception("Your engine made an invalid move... exiting")
+        raise Exception("Your engine made an invalid move... exiting", move)

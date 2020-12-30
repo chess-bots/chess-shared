@@ -20,7 +20,7 @@
     }
 
     function highlight_square(square, color) {
-        $('#chessboard .square-' + square).css('background', color)
+        $('#chessboard .square-' + square).css('background-color', color)
     }
     function highlight_moves(square, moves) {
         highlight_clear();
@@ -30,7 +30,7 @@
     }
 
     function highlight_clear() {
-        $('#chessboard .square-55d63').css('background', '')
+        $('#chessboard .square-55d63').css('background-color', '')
     }
 
     function onMouseoverSquare(square, piece) {
