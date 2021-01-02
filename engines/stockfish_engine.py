@@ -8,7 +8,7 @@ STOCKFISH_BENNETT_PATH = "C:\Code\Personal\Chess\stockfish\stockfish_12.exe"
 
 class StockfishEngine(AbstractEngine):
     """
-    Skill level is 1-7
+    Elo is 1350 -> 2850
     """
     def __init__(self, color, think_time = 10, elo = None, path=STOCKFISH_JUSTIN_PATH):
         super().__init__(color)
